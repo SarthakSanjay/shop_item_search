@@ -23,7 +23,7 @@ export function Search() {
                 setItems(res.data.items)
             })
         }
-        // fetchItems()
+        fetchItems()
     },[])
   return (
    
