@@ -5,6 +5,9 @@ const prisma = new PrismaClient()
 const app = express()
 app.use(cors())
 app.use(express.json())
+    app.get('/',(req,res)=>{
+        res.send("working...")
+    })
   app.post('/api/v1/item/create',async(req,res)=>{
     const body = req.body
 
@@ -64,13 +67,25 @@ app.use(express.json())
     })
   })
 
-  app.delete('/api/v1/item/delete_all',async(req,res)=>{
-    const items = await prisma.item.deleteMany()
-    res.status(200).json({
-        msg:'deleted all',
-        items
+//   app.delete('/api/v1/item/delete_all',async(req,res)=>{
+//     const items = await prisma.item.deleteMany()
+//     res.status(200).json({
+//         msg:'deleted all',
+//         items
+//     })
+//   })
+app.delete('/api/v1/item/delete/:id',async(req,res)=>{
+    const itemId = req.params.id.toString()
+    const item = await prisma.item.delete({
+        where:{
+            id:itemId
+        }
     })
-  })
+    res.status(200).json({
+        msg:"item deleted successfully",
+        item
+    })
+})
   app.listen(3000 ,()=>{
     console.log(`server listining on port 3000`);
   })
