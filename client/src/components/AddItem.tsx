@@ -14,7 +14,7 @@ import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useMyContext } from "@/context/context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -32,6 +32,9 @@ const formSchema = z.object({
 export function AddItem() {
     const [isOpen , setIsOpen] = useState<boolean>(false)
    const setAlert = useMyContext()
+   useEffect(()=>{
+    console.log('called');
+   },[isOpen])
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -229,6 +232,22 @@ export function AddItem() {
                           <Input
                             type="string"
                             id="five_kg"
+                            placeholder="price"
+                            className="bg-transparent"
+                            {...field}
+                          />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="twentyfive_kg"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col space-y-1.5  w-1/4">
+                          <FormLabel htmlFor="twentyfive_kg">25kg</FormLabel>
+                          <Input
+                            type="string"
+                            id="twentyfive_kg"
                             placeholder="price"
                             className="bg-transparent"
                             {...field}
