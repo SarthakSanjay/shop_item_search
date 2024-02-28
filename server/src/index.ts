@@ -86,7 +86,12 @@ app.delete('/api/v1/item/delete/:id',async(req,res)=>{
         item
     })
 })
-  app.listen(3000 ,()=>{
-    console.log(`server listining on port 3000`);
-  })
 
+async function startServer() {
+      app.listen(3000 ,()=>{
+        console.log(`server listining on port 3000`);
+      })
+    
+  }
+
+  startServer()
