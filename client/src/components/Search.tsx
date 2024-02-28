@@ -1,7 +1,4 @@
 import * as React from "react"
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
-
-import { cn } from "@/lib/utils"
 import {
   Command,
   CommandEmpty,
@@ -15,7 +12,6 @@ import { Info } from "./Info"
 
 export function Search() {
     const [items , setItems] = React.useState([])
-    console.log(items);
     React.useEffect(()=>{
         async function fetchItems() {
             await axios.get(`http://localhost:3000/api/v1/item/all`)
@@ -26,10 +22,8 @@ export function Search() {
         fetchItems()
     },[])
   return (
-   
-
         <Command className="bg-black text-white w-1/2">
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search framework..." className="h-10 mt-5" />
           <CommandEmpty>No framework found.</CommandEmpty>
           <CommandGroup>
             {items.map((item:{
@@ -46,7 +40,5 @@ export function Search() {
             ))}
           </CommandGroup>
         </Command>
-
-
   )
 }
