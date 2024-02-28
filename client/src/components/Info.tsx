@@ -12,9 +12,22 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Label } from "./ui/label"
+import { useMyContext } from "@/context/context"
+import axios from "axios"
 
 export function Info({item}) {
+    const setAlert = useMyContext()
  
+    async function handleDelete(){
+        await axios.delete(`http://localhost:3000/api/v1/item/delete/${item.id}`)
+        .then(res =>{
+            setAlert(true)
+            setTimeout(()=>{
+                setAlert(false)
+
+            },1000)
+        })
+    }
 
   return (
     <Drawer>
@@ -35,6 +48,11 @@ export function Info({item}) {
            {item.five_kg ? <Label className="border px-2 py-1 rounded-lg text-xl w-1/2 flex justify-between"><span>5kg</span> <span className="text-green-500">₹{item.five_kg}</span></Label>: ''} 
            {item.ten_kg ? <Label className="border px-2 py-1 rounded-lg text-xl w-1/2 flex justify-between"><span>10kg</span> <span className="text-green-500">₹{item.ten_kg}</span></Label>: ''} 
         </DrawerDescription>
+        <DrawerFooter>
+            <Button onClick={handleDelete}>
+                Delete
+            </Button>
+        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   )
